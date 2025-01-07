@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}صفحه پیدا نشد{% endblock %}
+
+{% block style %}
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        h1.text-danger {
+            font-size: 8rem;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
+    <h1 class="display-1 text-danger">404</h1>
+    <h2 class="mb-3">صفحه‌ای که به دنبال آن بودید پیدا نشد</h2>
+    <p class="mb-4 text-muted">ممکن است آدرس اشتباه باشد یا صفحه مورد نظر حذف شده باشد.</p>
+    <a href="{% url 'form_list' %}" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+</div>
+{% endblock %}

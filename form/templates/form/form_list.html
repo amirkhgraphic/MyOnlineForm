@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}فرم‌های موجود{% endblock %}
+
+{% block content %}
+    <div class="card shadow p-4">
+        <h1 class="text-center mb-4">فرم‌های موجود</h1>
+        <ul class="list-group">
+            {% for form in forms %}
+            <li class="list-group-item">
+                <a href="{% url 'form_detail' form.slug %}" class="text-decoration-none">
+                    {{ form.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

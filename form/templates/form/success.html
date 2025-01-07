@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="alert alert-success" role="alert">
+        <h1 class="display-4">رزرو شما با موفقیت انجام شد!</h1>
+        <p class="lead mt-3">از اینکه زمان خود را با ما تنظیم کردید متشکریم.</p>
+        <hr>
+        <p class="mt-4">
+            <a href="{% url 'form_list' %}" class="btn btn-primary btn-lg">بازگشت به فرم‌ها</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

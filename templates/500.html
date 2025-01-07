@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}خطای سرور{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="display-4 text-danger">خطای سرور</h1>
+        <p class="lead">متاسفانه مشکلی در سرور پیش آمده است. لطفاً دوباره تلاش کنید.</p>
+        <a href="{% url 'form_list' %}" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+    </div>
+{% endblock %}

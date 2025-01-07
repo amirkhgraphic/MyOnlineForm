@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}رزرو بازه زمانی{% endblock %}
+
+{% block content %}
+    {% if messages %}
+        <div class="alert alert-danger mt-3">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="card shadow p-4 align-items-center">
+        <h1 class="text-center mb-4">رزرو بازه زمانی</h1>
+        <p><strong>بازه زمانی:</strong> {{ time_slot.datetime }}</p>
+        <form method="post" class="mt-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">نام:</label>
+                <input type="text" id="first_name" name="first_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="last_name" class="form-label">نام خانوادگی:</label>
+                <input type="text" id="last_name" name="last_name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="student_id" class="form-label">شماره دانشجویی:</label>
+                <input type="text" id="student_id" name="student_id" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">رزرو</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'form_detail' time_slot.form.slug %}" class="btn btn-link">بازگشت به فرم</a>
+        </div>
+    </div>
+{% endblock %}

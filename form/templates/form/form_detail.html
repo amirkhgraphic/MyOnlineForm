@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}جزئیات فرم - {{ form.name }}{% endblock %}
+
+{% block content %}
+    <div class="card shadow p-4">
+        <h1 class="text-center mb-4">{{ form.name }}</h1>
+        <h2>زمان‌های موجود برای رزرو</h2>
+        <ul class="list-group">
+            {% for slot in time_slots %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ slot.datetime|date:"Y/m/d H:i" }}</span>
+                    {% if slot.answer %}
+                        <span class="badge badge-secondary">رزرو شده</span>
+                        <button class="btn btn-primary" disabled>رزرو شده</button>
+                    {% else %}
+                        <a href="{% url 'book_time_slot' form.slug slot.id %}" class="btn btn-success">رزرو</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

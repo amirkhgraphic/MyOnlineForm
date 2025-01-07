@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>زمان‌های رزرو شده برای فرم "{{ form.name }}"</h1>
+
+{% if booked_slots %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>زمان</th>
+                <th>نام دانشجو</th>
+                <th>کد دانشجویی</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for slot in booked_slots %}
+                <tr>
+                    <td>{{ slot.datetime|date:"Y/m/d H:i" }}</td>
+                    <td>{{ slot.answer.first_name }} {{ slot.answer.last_name }}</td>
+                    <td>{{ slot.answer.student_id }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>هیچ زمان رزرو شده‌ای وجود ندارد.</p>
+{% endif %}
+{% endblock %}
