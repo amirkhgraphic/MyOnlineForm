@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
@@ -28,7 +29,7 @@ def book_time_slot(request, slug, pk):
         last_name = request.POST.get('last_name')
         student_id = request.POST.get('student_id')
 
-        if first_name and last_name and student_id:
+        if not time_slot.form.valid_student_ids or int(student_id) in time_slot.form.valid_student_ids:
             try:
                 Answer.objects.create(
                     first_name=first_name,
@@ -39,10 +40,10 @@ def book_time_slot(request, slug, pk):
                 )
                 time_slot.mark_unavailable()
                 return redirect('success')
-            except Exception as e:
+            except IntegrityError:
                 messages.error(request, "شما قبلا با این کد دانشجویی ثبت نام کرده اید")
         else:
-            messages.error(request, "تمام فیلد ها را پر کنید (لطفا) :)")
+            messages.error(request, "شما نمی‌توانید برای این فرم پاسخی ثبت کنید!")
 
     return render(request, 'form/book_time_slot.html', {'time_slot': time_slot})
 
