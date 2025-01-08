@@ -1,11 +1,12 @@
-from django.contrib.auth.decorators import user_passes_test
 from django.db import IntegrityError
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 
 from .models import Form, TimeSlot, Answer
+from .permissions import admin_required
 
 
+@admin_required
 def form_list(request):
     forms = Form.objects.all()
     return render(request, 'form/form_list.html', {'forms': forms})
@@ -48,11 +49,7 @@ def book_time_slot(request, slug, pk):
     return render(request, 'form/book_time_slot.html', {'time_slot': time_slot})
 
 
-def is_admin(user):
-    return user.is_staff
-
-
-@user_passes_test(is_admin)
+@admin_required
 def booked_time_slots(request, slug):
     form = get_object_or_404(Form, slug=slug)
     booked_slots = TimeSlot.objects.filter(form=form, is_available=False)
