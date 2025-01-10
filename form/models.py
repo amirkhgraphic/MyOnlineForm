@@ -1,5 +1,6 @@
-from django.db import models
 from slugify import slugify
+
+from django.db import models
 
 
 class Form(models.Model):
@@ -45,6 +46,7 @@ class Answer(models.Model):
     def save(self, *args, **kwargs):
         if not self.time_slot.is_available:
             raise ValueError("This time slot is no longer available.")
+
         super().save(*args, **kwargs)
 
     def __str__(self):
