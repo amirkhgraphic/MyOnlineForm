@@ -4,9 +4,9 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.form_list, name='list'),
-    path('<slug:slug>/', views.form_detail, name='detail'),
-    path('<slug:slug>/time/<int:pk>/', views.book_time_slot, name='book-time-slot'),
-    path('<slug:slug>/booked/', views.booked_time_slots, name='booked-time-slots'),
-    path('<slug:slug>/success/', views.success_view, name='success'),
+    path('', views.FormListView.as_view(), name='list'),
+    path('<slug:slug>/', views.FormDetailView.as_view(), name='detail'),
+    path('<slug:slug>/time/<int:pk>/', views.BookTimeSlotView.as_view(), name='book-time-slot'),
+    path('<slug:slug>/booked/', views.BookedTimeSlotsView.as_view(), name='booked-time-slots'),
+    path('<slug:slug>/success/', views.SuccessView.as_view(), name='success'),
 ]
