@@ -1,0 +1,51 @@
+{% load static %}
+
+<header>
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">تنظیم تایم ارائه‌ها (؟!)</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">تنظیم تایم ارائه‌ها (؟!)</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav navbar-dark justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">صفحه‌ اصلی</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{% url 'form:list' %}">فرم‌ها</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">پروفایل</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{% url 'users:profile' %}">ویرایش اطلاعات</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:password_change' %}">تغییر رمزعبور</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <form method="POST" action="{% url 'users:logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="nav-link" style="border: none; background: none; padding: 0; cursor: pointer;">خروج از حساب‌کاربری</button>
+                                </form>
+                            </li>
+                        {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">ثبت‌نام/ورود</a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{% url 'users:signup' %}">ثبت‌نام</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:login' %}">ورود</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

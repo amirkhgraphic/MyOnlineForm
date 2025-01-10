@@ -1,3 +1,4 @@
+from django.conf import settings
 from slugify import slugify
 
 from django.db import models
@@ -8,6 +9,12 @@ class Form(models.Model):
     slug = models.SlugField(unique=True, blank=True)
     valid_student_ids = models.JSONField(default=list, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='forms',
+        default=1
+    )
 
     def save(self, *args, **kwargs):
         if not self.slug:

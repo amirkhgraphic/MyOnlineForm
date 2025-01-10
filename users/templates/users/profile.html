@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}ویرایش اطلاعات{% endblock %}
+
+{% block content %}
+    {% if messages %}
+    <div class="messages">
+        <ul>
+            {%  for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <h2 class="text-center">حساب‌کاربری</h2>
+    <hr />
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="w-100 btn btn-primary mt-3" type="submit">ثبت تغییرات</button>
+    </form>
+{% endblock %}

@@ -5,5 +5,6 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/', include(('form.urls', 'form'), namespace='form')),
+    path('user/', include(('users.urls', 'users'), namespace='users')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]
