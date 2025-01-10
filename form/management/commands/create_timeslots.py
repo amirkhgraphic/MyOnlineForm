@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
             TimeSlot.objects.bulk_create([
                 TimeSlot(form_id=form_id, datetime=aware_start_time + datetime.timedelta(minutes=duration * i))
-                for i in range(14)
+                for i in range(slot_count)
             ])
 
             self.stdout.write(self.style.SUCCESS(f"Successfully created {slot_count} time slots for from #{form_id}."))
