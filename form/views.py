@@ -1,6 +1,9 @@
+from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
+from django.utils import timezone
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 from django.urls import reverse
@@ -14,6 +17,10 @@ class FormListView(AdminRequiredMixin, ListView):
     model = Form
     template_name = 'form/list.html'
     context_object_name = 'forms'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(created_by=self.request.user)
 
 
 class FormDetailView(DetailView):
@@ -42,6 +49,11 @@ class SuccessView(TemplateView):
 class BookTimeSlotView(View):
     def get(self, request, slug, pk):
         time_slot = get_object_or_404(TimeSlot, pk=pk, is_available=True)
+
+        now = timezone.now()
+        if time_slot.datetime < now or time_slot.form.slug != slug:
+            raise Http404()
+
         context = {
             'time_slot': convert_to_jalali([time_slot])[0],
             'form_slug': time_slot.form.slug,
@@ -87,6 +99,10 @@ class BookedTimeSlotsView(AdminRequiredMixin, ListView):
 
     def get_queryset(self):
         form = get_object_or_404(Form, slug=self.kwargs['slug'])
+
+        if form.created_by != self.request.user:
+            raise PermissionDenied()
+
         booked_slots = TimeSlot.objects.filter(form=form, is_available=False)
         return convert_to_jalali(booked_slots)
 
