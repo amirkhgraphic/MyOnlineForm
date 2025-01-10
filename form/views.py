@@ -24,8 +24,8 @@ def form_detail(request, slug):
     })
 
 
-def success_view(request):
-    return render(request, 'form/success.html')
+def success_view(request, slug):
+    return render(request, 'form/success.html', {'slug': slug})
 
 
 def book_time_slot(request, slug, pk):
@@ -50,7 +50,7 @@ def book_time_slot(request, slug, pk):
                 if int(student_id) == 1401020111157:
                     return render(request, 'form/nothing-special.html')
 
-                return redirect('success')
+                return redirect('success', slug=slug)
             except IntegrityError:
                 messages.error(request, "شما قبلا با این کد دانشجویی ثبت نام کرده اید")
         else:
