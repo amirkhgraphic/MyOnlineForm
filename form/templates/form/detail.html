@@ -13,7 +13,7 @@
                     {% if slot.answer %}
                         <button class="btn btn-danger" disabled>رزرو شده</button>
                     {% else %}
-                        <a href="{% url 'book_time_slot' form.slug slot.id %}" class="btn btn-primary">رزرو</a>
+                        <a href="{% url 'form:book-time-slot' form.slug slot.id %}" class="btn btn-primary">رزرو</a>
                     {% endif %}
                 </li>
             {% endfor %}
