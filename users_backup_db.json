@@ -1,0 +1,22 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$CMn54MgWwROgaQZ6pbTLfD$AvWU4BkRGl4AQ4VvAgQbhOBIYEmq3erhQ6AYS1dS6dk=",
+        "last_login": "2025-01-10T20:50:26.027Z",
+        "is_superuser": true,
+        "username": "amir",
+        "is_staff": true,
+        "date_joined": "2025-01-10T20:38:44.148Z",
+        "first_name": "amirhossein",
+        "last_name": "khalili",
+        "email": "amir@gmail.com",
+        "phone": "09388263077",
+        "created_at": "2025-01-10T20:38:44.678Z",
+        "is_active": true,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
