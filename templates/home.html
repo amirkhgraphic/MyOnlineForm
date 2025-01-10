@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}خانه{% endblock %}
+
+{% block content %}
+    <div class="container h-100 mt-5">
+        <div class="card h-100 shadow-lg p-4">
+            <div id="title" class="mb-4">
+                <h1 class="text-center">به صفحه اصلی خوش اومدید!</h1>
+                <h5 class="text-center text-muted">ولی متاسفانه اینجا چیزی براتون نداریم :ـ)</h5>
+            </div>
+
+            <div class="h-100">
+                <div class="row">
+                    <p class="px-3 text-center">
+                        این وبسایت برای تسهیل مدیریت کلاس‌ها و زمان‌بندی ارائه‌ها طراحی شده است. هدف از این پروژه این است که فرآیند هماهنگی تایم‌های ارائه دانشجویان به ساده‌ترین شکل ممکن انجام شود و از اتلاف وقت جلوگیری شود.
+                        اگر دانشجو هستید، می‌توانید فرم‌های موجود را بررسی کرده و زمان ارائه خود را رزرو کنید. اگر مسئول کلاس یا استاد هستید، ابزارهایی برای مشاهده و مدیریت زمان‌بندی‌ها در اختیار شماست.
+                    </p>
+                    <p class="px-3 text-center text-muted small">
+                        متن بالا رو از دوست عزییییزم، ChatGPT گرفتم... اما ایده خوبیه احتمالا بعدا همین بستر رو دراختیار باقی TA ها هم قرار بدم تا ازش استفاده کنن =)))
+                    </p>
+                    <div class="col-md-12">
+                        <div class="card mb-4 shadow-sm">
+                            <a href="{% url 'form:list' %}" class="btn btn-primary py-3">همه فرم‌ها</a>
+                        </div>
+                    </div>
+                    {% if request.user.is_authenticated %}
+                        <div class="col-md-12">
+                            <div class="card mb-4 shadow-sm">
+                                <a href="/admin/" class="btn btn-primary py-3">پنل ادمین</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="text-center card-footer">
+                <p class="text-muted">تمامی حقوق محفوظ است &copy; {{ year }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
