@@ -4,6 +4,7 @@ from django.contrib import messages
 
 from .models import Form, TimeSlot, Answer
 from .permissions import admin_required
+from utils.persian import convert_to_jalali
 
 
 @admin_required
@@ -15,7 +16,12 @@ def form_list(request):
 def form_detail(request, slug):
     form = get_object_or_404(Form, slug=slug)
     time_slots = form.time_slots.all().order_by('datetime')
-    return render(request, 'form/form_detail.html', {'form': form, 'time_slots': time_slots})
+    jalali_timeslots = convert_to_jalali(time_slots)
+
+    return render(request, 'form/form_detail.html', {
+        'form': form,
+        'time_slots': jalali_timeslots,
+    })
 
 
 def success_view(request):
@@ -50,15 +56,19 @@ def book_time_slot(request, slug, pk):
         else:
             messages.error(request, "شما نمی‌توانید برای این فرم پاسخی ثبت کنید!")
 
-    return render(request, 'form/book_time_slot.html', {'time_slot': time_slot})
+    return render(request, 'form/book_time_slot.html', {
+        'time_slot': convert_to_jalali([time_slot])[0],
+        'form_slug': time_slot.form.slug,
+    })
 
 
 @admin_required
 def booked_time_slots(request, slug):
     form = get_object_or_404(Form, slug=slug)
     booked_slots = TimeSlot.objects.filter(form=form, is_available=False)
+    jalali_timeslots = convert_to_jalali(booked_slots)
 
     return render(request, 'form/booked_time_slots.html', {
         'form': form,
-        'booked_slots': booked_slots
+        'booked_slots': jalali_timeslots,
     })

@@ -9,7 +9,7 @@
         <ul class="list-group">
             {% for slot in time_slots %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>{{ slot.datetime|date:"Y/m/d H:i" }}</span>
+                    <span>{{ slot.datetime }}</span>
                     {% if slot.answer %}
                         <button class="btn btn-danger" disabled>رزرو شده</button>
                     {% else %}

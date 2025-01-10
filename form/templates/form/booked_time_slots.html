@@ -15,7 +15,7 @@
         <tbody>
             {% for slot in booked_slots %}
                 <tr>
-                    <td>{{ slot.datetime|date:"Y/m/d H:i" }}</td>
+                    <td>{{ slot.datetime }}</td>
                     <td>{{ slot.answer.first_name }} {{ slot.answer.last_name }}</td>
                     <td>{{ slot.answer.student_id }}</td>
                 </tr>
