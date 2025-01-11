@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>آیا مطمئن هستید که می‌خواهید این زمان رزرو شده را حذف کنید؟</h1>
+
+<p><strong>زمان:</strong> {{ datetime }}</p>
+<p><strong>نام دانشجو:</strong> {{ answer.first_name }} {{ answer.last_name }}</p>
+<p><strong>کد دانشجویی:</strong> {{ answer.student_id }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">بله، حذف کن</button>
+    <a href="{% url 'form:booked-time-slots' answer.form.slug %}" class="btn btn-secondary">لغو</a>
+</form>
+{% endblock %}

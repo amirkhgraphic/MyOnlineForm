@@ -18,6 +18,11 @@
                     <td>{{ slot.datetime }}</td>
                     <td>{{ slot.answer.first_name }} {{ slot.answer.last_name }}</td>
                     <td>{{ slot.answer.student_id }}</td>
+                    <td>
+                        <a href="{% url 'form:delete-answer' slot.answer.id %}" class="btn btn-danger">
+                            حذف
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

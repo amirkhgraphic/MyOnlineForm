@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView, TemplateView
-from django.urls import reverse
+from django.views.generic import ListView, DetailView, TemplateView, DeleteView, CreateView
+from django.urls import reverse, reverse_lazy
 
+from .forms import FormCreateForm
 from .models import Form, TimeSlot, Answer
 from .permissions import AdminRequiredMixin
 from utils.persian import convert_to_jalali
@@ -110,4 +111,26 @@ class BookedTimeSlotsView(AdminRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         form = get_object_or_404(Form, slug=self.kwargs['slug'])
         context['form'] = form
+        return context
+
+
+class AnswerDeleteView(DeleteView):
+    model = Answer
+    template_name = 'form/delete-answer-confirm.html'
+    context_object_name = 'answer'
+
+    def get_success_url(self):
+        return reverse_lazy('form:booked-time-slots', kwargs={'slug': self.object.form.slug})
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user == queryset.first().form.created_by:
+            return queryset
+
+        return queryset.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['datetime'] = convert_to_jalali([context['answer'].time_slot])[0]['datetime']
         return context

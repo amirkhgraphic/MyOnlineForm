@@ -7,12 +7,21 @@
         <h1 class="text-center mb-4">فرم‌های موجود</h1>
         <ul class="list-group">
             {% for form in forms %}
-            <li class="list-group-item">
-                <a href="{% url 'form:detail' form.slug %}" class="text-decoration-none">
-                    {{ form.name }}
-                </a>
-            </li>
+                <li class="list-group-item">
+                    <a href="{% url 'form:detail' form.slug %}" class="text-decoration-none">
+                        {{ form.name }}
+                    </a>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center text-muted">
+                    <p>فرمی برای نمایش وجود ندارد.</p>
+                </li>
             {% endfor %}
+            <p>
+                <a href="{% url 'form:create' %}" class="btn btn-success">
+                    ایجاد فرم جدید
+                </a>
+            </p>
         </ul>
     </div>
 {% endblock %}

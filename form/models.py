@@ -56,6 +56,11 @@ class Answer(models.Model):
 
         super().save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        self.time_slot.is_available = True
+        self.time_slot.save()
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return f'{self.first_name} {self.last_name}: {self.time_slot}'
 
