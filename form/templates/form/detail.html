@@ -7,16 +7,24 @@
         <h1 class="text-center mb-4">«{{ form.name }}»</h1>
 
         <div class="mb-4">
-            <h5>اطلاعات فرم:</h5>
+            <div class="d-flex justify-content-between">
+                <h5>اطلاعات فرم:</h5>
+                <a href="{% url 'form:list' %}">
+                    <u>بازگشت به فرم‌ها</u>
+                </a>
+            </div>
             <ul class="list-group col-12">
+                <li class="list-group-item">
+                    <strong>دستیار آموزشی (TA):</strong> {{ form.created_by.first_name }} {{ form.created_by.last_name }}
+                </li>
                 {% if form.course_name %}
                     <li class="list-group-item">
-                        <strong>نام درس:</strong> {{ form.course_name }}
+                        <strong>درس:</strong> {{ form.course_name }}
                     </li>
                 {% endif %}
                 {% if form.professor_name %}
                     <li class="list-group-item">
-                        <strong>نام استاد:</strong> {{ form.professor_name }}
+                        <strong>استاد:</strong> {{ form.professor_name }}
                     </li>
                 {% endif %}
                 {% if form.year %}
@@ -27,7 +35,7 @@
                 {% if form.semester %}
                     <li class="list-group-item">
                         <strong>ترم:</strong>
-                        {{ form.get_semester_display }}
+                        {{ form.get_semester_display|slice:"4:" }}
                     </li>
                 {% endif %}
             </ul>

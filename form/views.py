@@ -113,13 +113,17 @@ class TimeSlotsCreateView(generic.View):
             aware_start_time = make_aware(current_time)
 
             time_slots = [
-                TimeSlot(form_id=form_id, datetime=aware_start_time + datetime.timedelta(minutes=duration * i))
+                TimeSlot(form_id=form_id, datetime=aware_start_time + datetime.timedelta(minutes=(duration + breaktime) * i))
                 for i in range(slot_count)
             ]
-            TimeSlot.objects.bulk_create(time_slots)
-            return redirect('form:detail', slug=obj.slug)
+            try:
+                TimeSlot.objects.bulk_create(time_slots)
+            except:
+                form.add_error(None, "تاریخ و زمان انتخابی شما با زمان‌هایی که قبلا انتخاب کرده‌اید هم‌پوشانی دارد!")
+            else:
+                return redirect('form:detail', slug=obj.slug)
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, 'obj': obj})
 
 
 class TimeSlotDeleteView(AdminRequiredMixin, generic.DeleteView):
@@ -227,7 +231,7 @@ class AnswerDeleteView(generic.DeleteView):
     context_object_name = 'answer'
 
     def get_success_url(self):
-        return reverse_lazy('form:booked-time-slots', kwargs={'slug': self.object.form.slug})
+        return reverse_lazy('form:answers', kwargs={'slug': self.object.form.slug})
 
     def get_queryset(self):
         queryset = super().get_queryset()

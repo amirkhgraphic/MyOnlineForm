@@ -8,14 +8,14 @@ User = get_user_model()
 
 @admin.register(User)
 class MyUserAdmin(UserAdmin):
-    list_display = ('username', 'first_name', 'last_name', 'created_at', 'last_login', 'is_active', 'is_staff')
+    list_display = ('username', 'first_name', 'last_name', 'created_at', 'last_login', 'is_active', 'is_staff', 'is_admin')
     readonly_fields = ('created_at', 'last_login')
     search_fields = ('username', 'email', 'first_name', 'last_name')
     ordering = ('-created_at',)
     fieldsets = (
         (_('basic'), {'fields': ('username', 'first_name', 'last_name', 'email', 'phone')}),
         (_('Important dates'), {'fields': ('created_at', 'last_login')}),
-        (_('Permissions'), {'fields': ('is_staff', 'is_active')}),
+        (_('Permissions'), {'fields': ('is_staff', 'is_active', 'is_admin')}),
     )
     list_filter = (
         'is_active',

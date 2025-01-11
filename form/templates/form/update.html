@@ -10,7 +10,7 @@
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
-        <a href="{% url 'form:detail' object.slug %}" class="btn btn-secondary">لغو</a>
+        <a href="{% url 'form:detail' object.slug %}" class="btn btn-danger">لغو</a>
     </form>
 </div>
 {% endblock %}

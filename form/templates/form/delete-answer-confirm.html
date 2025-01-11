@@ -10,6 +10,6 @@
 <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">بله، حذف کن</button>
-    <a href="{% url 'form:booked-time-slots' answer.form.slug %}" class="btn btn-secondary">لغو</a>
+    <a href="{% url 'form:answers' answer.form.slug %}" class="btn btn-secondary">لغو</a>
 </form>
 {% endblock %}

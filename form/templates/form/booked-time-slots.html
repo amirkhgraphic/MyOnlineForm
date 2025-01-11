@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>زمان‌های رزرو شده برای فرم "{{ form.name }}"</h1>
-
+<div class="d-flex align-items-center justify-content-between my-3">
+    <h1 class="m-0">زمان‌های رزرو شده برای فرم «{{ form.name }}»</h1>
+    <a href="{% url 'form:detail' form.slug %}" class="me-3">
+        <u>بازگشت</u>
+    </a>
+</div>
 {% if booked_slots %}
     <table class="table table-bordered">
         <thead>
