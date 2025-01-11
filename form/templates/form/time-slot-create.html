@@ -9,7 +9,13 @@
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">افزودن</button>
+        <p class="small text-center text-muted fst-italic">(جهت پیدا کردن تاریخ میلادی روز مورد نظر خود می‌توانید از
+            <a href="https://www.time.ir/" target="_blank">time.ir</a>
+            و یا
+            <a href="https://www.bahesab.ir/time/conversion/" target="_blank">baheshab.ir</a>
+            استفاده کنید :)
+        </p>
+        <button type="submit" class="btn btn-primary">افزودن</button>
         <a href="{% url 'form:detail' obj.slug %}" class="btn btn-danger">لغو</a>
     </form>
 </div>

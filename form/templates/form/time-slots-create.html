@@ -7,7 +7,12 @@
   <div class="card shadow p-4">
     <h1 class="text-center mb-4">افزودن چندین زمان جدید برای فرم «{{ obj.name }}»</h1>
     <a href="{% url 'form:add-time-slot' obj.id %}" class="text-center w-100 mb-3">برای افزودن یک تاریخ و زمان خاص از روی تقویم کلیک کنید</a>
-
+    <p class="small text-center text-muted fst-italic">(جهت پیدا کردن تاریخ میلادی روز مورد نظر خود می‌توانید از
+        <a href="https://www.time.ir/" target="_blank">time.ir</a>
+        و یا
+        <a href="https://www.bahesab.ir/time/conversion/" target="_blank">baheshab.ir</a>
+        استفاده کنید :)
+    </p>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
