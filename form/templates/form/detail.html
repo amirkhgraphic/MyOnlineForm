@@ -4,8 +4,25 @@
 
 {% block content %}
     <div class="card shadow p-4">
-        <h1 class="text-center mb-4">{{ form.name }}</h1>
-        <h2>زمان‌های موجود برای رزرو</h2>
+        <h1 class="text-center mb-4">«{{ form.name }}»</h1>
+
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row gap-2">
+            <h3 class="w-100 m-0">زمان‌های موجود برای رزرو</h3>
+            {% if user == form.created_by %}
+            <div class="w-100 d-flex flex-column flex-sm-row align-items-start gap-2">
+                <a href="{% url 'form:update' form.slug %}" class="w-100 btn btn-warning">
+                    ویرایش فرم
+                </a>
+                <a href="{% url 'form:add-time-slots' form.id %}" class="w-100 btn btn-success">
+                    افزودن زمان
+                </a>
+                <a href="{% url 'form:answers' form.slug %}" class="w-100 btn btn-primary">
+                    رزروها
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
         <ul class="list-group">
             {% for slot in time_slots %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -17,7 +34,12 @@
                         <p>{% url 'form:book-time-slot' form.slug slot.id %}</p>
                         <button class="btn btn-secondary" disabled>منفضی شده</button>
                     {% else %}
-                        <a href="{% url 'form:book-time-slot' form.slug slot.id %}" class="btn btn-primary">رزرو</a>
+                        <div id="buttons">
+                            <a href="{% url 'form:book-time-slot' form.slug slot.id %}" class="btn btn-primary">رزرو</a>
+                            {% if user == form.created_by %}
+                                <a href="{% url 'form:delete-time-slot' form.slug slot.id %}" class="btn btn-danger ms-2">حذف</a>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 </li>
             {% empty %}

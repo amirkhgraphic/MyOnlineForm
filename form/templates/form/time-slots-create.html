@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}افزودن چندین زمان جدید{% endblock %}
+
+{% block content %}
+  <div class="card shadow p-4">
+    <h1 class="text-center mb-4">افزودن چندین زمان جدید برای فرم «{{ obj.name }}»</h1>
+    <a href="{% url 'form:add-time-slot' obj.id %}" class="text-center w-100">برای افزودن یک تاریخ و زمان خاص از روی تقویم کلیک کنید</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-primary">افزودن</button>
+        <a href="{% url 'form:detail' obj.slug %}" class="btn btn-danger">لغو</a>
+    </form>
+  </div>
+{% endblock %}

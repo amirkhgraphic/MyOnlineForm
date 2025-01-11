@@ -1,11 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block style %}
-    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
-{% endblock %}
-
 {% block content %}
 <div class="card shadow p-4">
     <h1 class="text-center mb-4">ایجاد فرم جدید</h1>
@@ -15,19 +10,4 @@
         <button type="submit" class="btn btn-primary w-100">ایجاد فرم</button>
     </form>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const input = document.querySelector('.tagify-input');
-        if (input) {
-            new Tagify(input, {
-                delimiter: ',',
-                enforceWhitelist: false,
-                dropdown: {
-                    enabled: 0
-                }
-            });
-        }
-    });
-</script>
 {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}افزودن زمان جدید{% endblock %}
+
+{% block content %}
+<div class="card shadow p-4">
+    <h1 class="text-center mb-4">افزودن زمان جدید برای فرم "{{ obj.name }}"</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">افزودن</button>
+        <a href="{% url 'form:detail' obj.slug %}" class="btn btn-danger">لغو</a>
+    </form>
+</div>
+{% endblock %}
