@@ -1,20 +1,54 @@
-from django.conf import settings
+import jdatetime
+from django.core.validators import MinValueValidator
 from slugify import slugify
 
 from django.db import models
+from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 
 class Form(models.Model):
+    SEMESTER_CHOICES = [
+        ('0', _('ترم پاییز')),
+        ('1', _('ترم بهار')),
+    ]
+
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
     valid_student_ids = models.JSONField(default=list, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    course_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("نام درس مرتبط با این فرم")
+    )
+    year = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        validators=[MinValueValidator(jdatetime.datetime.now().year)],
+        help_text=_("سال تحصیلی (مثلا: ۱۴۰۳)")
+    )
+    semester = models.CharField(
+        max_length=1,
+        choices=SEMESTER_CHOICES,
+        blank=True,
+        null=True,
+        help_text=_('ترم جاری')
+    )
+    professor_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_("نام استاد درس مرتبط با این فرم")
+    )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='forms',
         default=1
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:

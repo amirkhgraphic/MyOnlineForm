@@ -22,6 +22,7 @@ class User(AbstractUser):
     )
     created_at = models.DateTimeField(auto_now_add=True, help_text=_('creation date'))
     is_active = models.BooleanField(default=True, help_text=_('is active'))
+    is_admin = models.BooleanField(default=False, help_text=_('is admin'))
 
     def __str__(self):
         return self.username

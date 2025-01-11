@@ -6,6 +6,33 @@
     <div class="card shadow p-4">
         <h1 class="text-center mb-4">«{{ form.name }}»</h1>
 
+        <div class="mb-4">
+            <h5>اطلاعات فرم:</h5>
+            <ul class="list-group col-12">
+                {% if form.course_name %}
+                    <li class="list-group-item">
+                        <strong>نام درس:</strong> {{ form.course_name }}
+                    </li>
+                {% endif %}
+                {% if form.professor_name %}
+                    <li class="list-group-item">
+                        <strong>نام استاد:</strong> {{ form.professor_name }}
+                    </li>
+                {% endif %}
+                {% if form.year %}
+                    <li class="list-group-item">
+                        <strong>سال تحصیلی:</strong> {{ form.year }}
+                    </li>
+                {% endif %}
+                {% if form.semester %}
+                    <li class="list-group-item">
+                        <strong>ترم:</strong>
+                        {{ form.get_semester_display }}
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mb-3 flex-column flex-md-row gap-2">
             <h3 class="w-100 m-0">زمان‌های موجود برای رزرو</h3>
             {% if user == form.created_by %}

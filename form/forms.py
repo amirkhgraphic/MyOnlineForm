@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .models import Form, TimeSlot
@@ -7,14 +8,33 @@ from .models import Form, TimeSlot
 class FormCreateForm(forms.ModelForm):
     class Meta:
         model = Form
-        fields = ['name', 'valid_student_ids']
+        fields = [
+            'name',
+            'course_name',
+            'professor_name',
+            'year',
+            'semester',
+            'valid_student_ids',
+        ]
         widgets = {
             'valid_student_ids': forms.TextInput(attrs={
-                'placeholder': _('Enter student IDs'),
+                'placeholder': _('شماره‌های دانشجویی مجاز جهت رزرو تایم را وارد کنید'),
                 'class': 'form-control tagify-input',
                 'data-tagify': 'true',
             }),
         }
+        labels = {
+            'name': 'نام فرم',
+            'course_name': 'درس',
+            'professor_name': 'استاد',
+            'year': 'سال تحصیلی',
+            'semester': 'ترم جاری',
+            'valid_student_ids': 'شماره های دانشجویی مجاز',
+        }
+
+    def clean_valid_student_ids(self):
+        valid_ids = self.cleaned_data['valid_student_ids']
+        return list(map(lambda x: str(x['value']), valid_ids)) if valid_ids else []
 
 
 class TimeSlotCreateForm(forms.ModelForm):
@@ -30,6 +50,12 @@ class TimeSlotCreateForm(forms.ModelForm):
         labels = {
             'datetime': _('تاریخ و زمان'),
         }
+
+    def clean_datetime(self):
+        selected_datetime = self.cleaned_data.get('datetime')
+        if selected_datetime < now():
+            raise forms.ValidationError(_('زمان انتخاب شده شما گذشته است.'))
+        return selected_datetime
 
 
 class TimeSlotsCreateForm(forms.Form):
