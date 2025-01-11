@@ -18,27 +18,19 @@ class Form(models.Model):
     valid_student_ids = models.JSONField(default=list, blank=True)
     course_name = models.CharField(
         max_length=255,
-        blank=True,
-        null=True,
         help_text=_("نام درس مرتبط با این فرم")
     )
     year = models.PositiveIntegerField(
-        blank=True,
-        null=True,
         validators=[MinValueValidator(jdatetime.datetime.now().year)],
         help_text=_("سال تحصیلی (مثلا: ۱۴۰۳)")
     )
     semester = models.CharField(
         max_length=1,
         choices=SEMESTER_CHOICES,
-        blank=True,
-        null=True,
         help_text=_('ترم جاری')
     )
     professor_name = models.CharField(
         max_length=255,
-        blank=True,
-        null=True,
         help_text=_("نام استاد درس مرتبط با این فرم")
     )
     created_by = models.ForeignKey(
