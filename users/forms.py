@@ -16,6 +16,15 @@ class UserSignUpForm(UserCreationForm):
             'password1',
             'password2',
         ]
+        labels = {
+            'username': 'نام کاربری',
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'email': 'ایمیل',
+            'phone': 'تلفن',
+            'password1': 'گذرواژه',
+            'password2': 'تایید گذرواژه',
+        }
         
 
 class UserProfileForm(forms.ModelForm):
@@ -28,3 +37,10 @@ class UserProfileForm(forms.ModelForm):
             'email',
             'phone',
         ]
+        labels = {
+            'username': 'نام کاربری',
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'email': 'ایمیل',
+            'phone': 'تلفن',
+        }
