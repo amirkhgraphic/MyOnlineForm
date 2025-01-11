@@ -38,6 +38,17 @@ class FormDetailView(DetailView):
         return context
 
 
+class FormCreateView(AdminRequiredMixin, CreateView):
+    model = Form
+    template_name = 'form/create.html'
+    form_class = FormCreateForm
+    success_url = reverse_lazy('form:list')
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
 class SuccessView(TemplateView):
     template_name = 'form/success.html'
 
