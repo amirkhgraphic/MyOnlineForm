@@ -178,7 +178,7 @@ class BookTimeSlotView(View):
         last_name = request.POST.get('last_name')
         student_id = request.POST.get('student_id')
 
-        if not time_slot.form.valid_student_ids or int(student_id) in time_slot.form.valid_student_ids:
+        if not time_slot.form.valid_student_ids or str(student_id) in time_slot.form.valid_student_ids:
             try:
                 Answer.objects.create(
                     first_name=first_name,
@@ -188,9 +188,6 @@ class BookTimeSlotView(View):
                     time_slot=time_slot
                 )
                 time_slot.mark_unavailable()
-
-                if int(student_id) == 1401020111157:
-                    return render(request, 'form/nothing-special.html')
 
                 return redirect(reverse('form:success', kwargs={'slug': slug}))
             except IntegrityError:
