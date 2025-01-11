@@ -203,7 +203,7 @@ class BookTimeSlotView(View):
 
 
 class BookedTimeSlotsView(AdminRequiredMixin, generic.ListView):
-    template_name = 'form/booked-time-slots.html'
+    template_name = 'form/answers.html'
     context_object_name = 'booked_slots'
 
     def get_queryset(self):
