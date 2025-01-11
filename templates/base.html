@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html class="h-100" lang="fa">
+<html class="container-fluid h-100" lang="fa">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     {% block style %}{% endblock %}
 </head>
-<body class="h-100">
+<body class="py-4">
     {% include 'header.html' %}
     <div class="container h-100 mt-5">
         {% block content %}{% endblock %}
