@@ -43,8 +43,9 @@ class Form(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name, separator='-')
+        new_id = Form.objects.order_by('-id').values_list('id', flat=True)[0] + 1
+        slug = f"{slugify(self.name)}-{new_id}"
+        self.slug = slug
         super().save(*args, **kwargs)
 
     def __str__(self):
