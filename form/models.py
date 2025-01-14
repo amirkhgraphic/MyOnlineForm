@@ -72,6 +72,7 @@ class Answer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     student_id = models.CharField(max_length=15)
+    email = models.EmailField(null=True, blank=True)
     form = models.ForeignKey(Form, on_delete=models.CASCADE, related_name='answers')
     time_slot = models.OneToOneField(TimeSlot, on_delete=models.CASCADE, related_name='answer')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -94,5 +95,6 @@ class Answer(models.Model):
     class Meta:
         unique_together = (
             ('form', 'student_id'),
-            ('form', 'time_slot')
+            ('form', 'time_slot'),
+            ('form', 'email'),
         )

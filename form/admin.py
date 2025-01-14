@@ -49,3 +49,7 @@ class AnswerAdmin(admin.ModelAdmin):
         return convert_to_jalali([obj.time_slot])[0]['datetime']
 
     jalali_datetime.short_description = 'Jalali DateTime'
+
+    def delete_queryset(self, request, queryset):
+        for obj in queryset:
+            obj.delete()

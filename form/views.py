@@ -14,6 +14,7 @@ from .forms import FormCreateForm, TimeSlotCreateForm, TimeSlotsCreateForm
 from .models import Form, TimeSlot, Answer
 from .permissions import AdminRequiredMixin
 from utils.persian import convert_to_jalali
+from .tasks import send_booking_email_task
 
 
 class FormListView(AdminRequiredMixin, generic.ListView):
@@ -177,6 +178,7 @@ class BookTimeSlotView(View):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         student_id = request.POST.get('student_id')
+        user_email = request.POST.get('email')
 
         if not time_slot.form.valid_student_ids or str(student_id) in time_slot.form.valid_student_ids:
             try:
@@ -185,13 +187,22 @@ class BookTimeSlotView(View):
                     last_name=last_name,
                     student_id=student_id,
                     form=time_slot.form,
-                    time_slot=time_slot
+                    time_slot=time_slot,
+                    email=user_email,
                 )
                 time_slot.mark_unavailable()
 
+                send_booking_email_task(user_email, {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'student_id': student_id,
+                    'datetime': convert_to_jalali([time_slot])[0]['datetime'],
+                    'form_name': time_slot.form.name,
+                })
+
                 return redirect(reverse('form:success', kwargs={'slug': slug}))
             except IntegrityError:
-                messages.error(request, "شما قبلا با این کد دانشجویی ثبت نام کرده اید")
+                messages.error(request, "شما قبلا با این کد دانشجویی یا ایمیل ثبت نام کرده‌اید")
         else:
             messages.error(request, "شما نمی‌توانید برای این فرم پاسخی ثبت کنید!")
 

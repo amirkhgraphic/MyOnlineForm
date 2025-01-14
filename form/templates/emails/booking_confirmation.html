@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تایید رزرو</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Tahoma', sans-serif;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+            color: #212529;
+            text-align: right;
+        }
+        .email-footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Email Header -->
+        <div class="email-header">
+            <h1>تایید رزرو</h1>
+        </div>
+        <!-- Email Body -->
+        <div class="email-body">
+            <p>کاربر گرامی <strong>{{ first_name }} {{ last_name }}</strong>,</p>
+            <p>رزرو شما برای فرم
+                {{ form_name }}
+                با موفقیت ثبت شد.</p>
+            <p>زمان رزرو شده شما:</p>
+            <p style="color:dodgerblue; font-weight: bold;">{{ datetime }}</p>
+            <p>از اینکه از خدمات ما استفاده می‌کنید سپاسگزاریم!</p>
+        </div>
+        <!-- Email Footer -->
+        <div class="email-footer">
+            <p>&copy; 2025 نام شرکت شما. کلیه حقوق محفوظ است.</p>
+        </div>
+    </div>
+</body>
+</html>
