@@ -13,7 +13,7 @@
     <div class="card shadow p-4 align-items-center">
         <h1 class="text-center mb-4">رزرو بازه زمانی</h1>
         <p><strong>بازه زمانی:</strong> {{ time_slot.datetime }}</p>
-        <form method="post" class="mt-3">
+        <form method="post" class="mt-3" id="reservationForm">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="first_name" class="form-label">نام:</label>
@@ -31,10 +31,64 @@
                 <label for="email" class="form-label">ایمیل (جهت ارسال تایید ثبت‌نام):</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">رزرو</button>
+            <button type="submit" class="btn btn-primary w-100" id="submitButton">رزرو</button>
         </form>
         <div class="text-center mt-3">
             <a href="{% url 'form:detail' form_slug %}" class="btn btn-link">بازگشت به فرم</a>
         </div>
     </div>
+
+    <!-- Loader Modal -->
+    <div id="loaderModal" class="modal" style="display: none;">
+        <div class="modal-backdrop"></div>
+        <div class="loader"></div>
+    </div>
+
+    <style>
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1050;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1100;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+    <script>
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            const submitButton = document.getElementById('submitButton');
+            const loaderModal = document.getElementById('loaderModal');
+
+            // Disable the button
+            submitButton.disabled = true;
+
+            // Show the loader modal
+            loaderModal.style.display = 'flex';
+        });
+    </script>
 {% endblock %}

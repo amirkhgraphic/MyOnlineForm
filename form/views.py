@@ -192,16 +192,13 @@ class BookTimeSlotView(View):
                 )
                 time_slot.mark_unavailable()
 
-                try:
-                    send_booking_email_task.delay(user_email, {
-                        'first_name': first_name,
-                        'last_name': last_name,
-                        'student_id': student_id,
-                        'datetime': convert_to_jalali([time_slot])[0]['datetime'],
-                        'form_name': time_slot.form.name,
-                    })
-                except Exception as e:
-                    print('error:', e)
+                send_booking_email_task(user_email, {
+                    'first_name': first_name,
+                    'last_name': last_name,
+                    'student_id': student_id,
+                    'datetime': convert_to_jalali([time_slot])[0]['datetime'],
+                    'form_name': time_slot.form.name,
+                })
 
                 return redirect(reverse('form:success', kwargs={'slug': slug}))
             except IntegrityError:
