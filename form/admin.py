@@ -41,7 +41,7 @@ class TimeSlotAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'student_id', 'form', 'jalali_datetime', 'created_at')
     list_filter = ('form', 'created_at')
-    search_fields = ('first_name', 'last_name', 'student_id', 'time_slot__datetime', 'form__name')
+    search_fields = ('first_name', 'last_name', 'student_id', 'email', 'time_slot__datetime', 'form__name')
     ordering = ('-created_at',)
     readonly_fields = ('created_at', 'updated_at')
 
