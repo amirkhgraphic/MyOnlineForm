@@ -21,6 +21,8 @@ INSTALLED_APPS = [
 
     "crispy_forms",
     "crispy_bootstrap5",
+
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -106,3 +108,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'eastguilanceassociation@gmail.com'
 EMAIL_HOST_PASSWORD = 'dcnv cczt bbmb xnsw'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BROKER_URL = 'redis://default:IMTqXhAq3iuoV4qq1EvvE7ihbAB1xmRz@redis-15351.c274.us-east-1-3.ec2.redns.redis-cloud.com:15351'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'django-db'

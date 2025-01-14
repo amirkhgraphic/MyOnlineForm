@@ -1,8 +1,11 @@
+from celery import shared_task
+
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.conf import settings
 
 
+@shared_task
 def send_booking_email_task(user_email, context):
     subject = "تایید رزرو"
     message = render_to_string('emails/booking_confirmation.html', context)
