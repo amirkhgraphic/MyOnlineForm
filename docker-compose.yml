@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: online-form
+    command: gunicorn --bind 0.0.0.0:8000 core.wsgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery-worker
+    command: celery -A core worker --l INFO -P eventlet
+    volumes:
+      - .:/app

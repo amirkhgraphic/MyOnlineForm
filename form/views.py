@@ -192,7 +192,7 @@ class BookTimeSlotView(View):
                 )
                 time_slot.mark_unavailable()
 
-                send_booking_email_task(user_email, {
+                send_booking_email_task.delay(user_email, {
                     'first_name': first_name,
                     'last_name': last_name,
                     'student_id': student_id,
