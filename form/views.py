@@ -192,7 +192,7 @@ class BookTimeSlotView(View):
                 )
                 time_slot.mark_unavailable()
 
-                send_booking_email_task(user_email, {
+                send_booking_email_task.delay(user_email, {
                     'first_name': first_name,
                     'last_name': last_name,
                     'student_id': student_id,
@@ -249,7 +249,7 @@ class AnswerDeleteView(generic.DeleteView):
 
     def post(self, request, *args, **kwargs):
         obj = self.get_object()
-        send_cancel_mail_task(obj.email, {
+        send_cancel_mail_task.delay(obj.email, {
             'first_name': obj.first_name,
             'last_name': obj.last_name,
             'student_id': obj.student_id,
