@@ -3,15 +3,31 @@
 
 {% block title %}ثبت‌نام{% endblock %}
 
+{% block style %}
+    <style>
+        .form-check-label {
+            margin: 0; !important;
+        }
+
+        #div_id_apply_for_ta {
+            display: flex; !important;
+            flex-direction: row; !important;
+            justify-content: flex-start; !important;
+            gap: 2rem; !important;
+        }
+
+    </style>
+{% endblock %}
+
 {% block content %}
 <div class="form-container">
     <h2 class="text-center">صفحه ثبت‌نام</h2>
     <hr />
 
-    <form method="post">
+    <form method="post" id="TargetForm">
         {% csrf_token %}
         {{ form|crispy }}
-        <button class="w-100 btn btn-primary mt-3" type="submit">تایید ثبت‌نام</button>
+        <button class="w-100 btn btn-primary mt-3" type="submit" id="submitButton">تایید ثبت‌نام</button>
     </form>
 </div>
 <p class="text-center mt-1">حساب‌کاربری دارید؟ <span><a href="{% url 'users:login' %}">وارد شوید!</a></span></p>

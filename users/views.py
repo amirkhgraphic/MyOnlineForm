@@ -6,6 +6,7 @@ from django.views.generic import FormView
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 
+from form.tasks import send_admin_request_email_task
 from .forms import UserSignUpForm, UserProfileForm
 from .models import User
 
@@ -17,9 +18,15 @@ class UserSignUpView(FormView):
 
     def form_valid(self, form):
         form.save()
+
         username = form.cleaned_data['username']
         raw_password = form.cleaned_data['password1']
         user = authenticate(username=username, password=raw_password)
+
+        if form.cleaned_data['apply_for_ta']:
+            send_admin_request_email_task({
+                'username': username,
+            })
 
         if user is not None:
             login(self.request, user)
