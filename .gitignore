@@ -5,3 +5,4 @@ media/
 local_*
 db.sqlite3
 staticfiles
+.env
