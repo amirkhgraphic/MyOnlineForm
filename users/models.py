@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class User(AbstractUser):
     first_name = models.CharField(max_length=30, help_text=_('نام'))
     last_name = models.CharField(max_length=30, help_text=_('نام خانوادگی'))
+    student_id = models.CharField(max_length=15, help_text=_('کد دانشچویی'), blank=True, null=True)
     email = models.EmailField(unique=True, help_text=_('آدرس ایمیل'))
     phone = models.CharField(
         max_length=11,
