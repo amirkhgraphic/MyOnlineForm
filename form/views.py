@@ -241,16 +241,14 @@ class AnswerDeleteView(generic.DeleteView):
     def get_success_url(self):
         return reverse_lazy('form:answers', kwargs={'slug': self.object.form.slug})
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if self.request.user == queryset.first().form.created_by:
-            return queryset
-
-        return queryset.none()
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if self.request.user == obj.form.created_by:
+            return obj
+        raise PermissionDenied()
 
     def post(self, request, *args, **kwargs):
-        obj = self.get_queryset().first()
-        print(obj)
+        obj = self.get_object()
         send_cancel_mail_task(obj.email, {
             'first_name': obj.first_name,
             'last_name': obj.last_name,
