@@ -14,7 +14,7 @@ from .forms import FormCreateForm, TimeSlotCreateForm, TimeSlotsCreateForm
 from .models import Form, TimeSlot, Answer
 from .permissions import AdminRequiredMixin
 from utils.persian import convert_to_jalali
-from .tasks import send_booking_email_task
+from .tasks import send_booking_email_task, send_cancel_mail_task
 
 
 class FormListView(AdminRequiredMixin, generic.ListView):
@@ -247,6 +247,18 @@ class AnswerDeleteView(generic.DeleteView):
             return queryset
 
         return queryset.none()
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_queryset().first()
+        print(obj)
+        send_cancel_mail_task(obj.email, {
+            'first_name': obj.first_name,
+            'last_name': obj.last_name,
+            'student_id': obj.student_id,
+            'datetime': convert_to_jalali([obj.time_slot])[0]['datetime'],
+            'form_name': obj.time_slot.form.name,
+        })
+        return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

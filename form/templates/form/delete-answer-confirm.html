@@ -7,9 +7,9 @@
 <p><strong>نام دانشجو:</strong> {{ answer.first_name }} {{ answer.last_name }}</p>
 <p><strong>کد دانشجویی:</strong> {{ answer.student_id }}</p>
 
-<form method="post">
+<form method="post" id="TargetForm">
     {% csrf_token %}
-    <button type="submit" class="btn btn-danger">بله، حذف کن</button>
+    <button type="submit" class="btn btn-danger" id="submitButton">بله، حذف کن</button>
     <a href="{% url 'form:answers' answer.form.slug %}" class="btn btn-secondary">لغو</a>
 </form>
 {% endblock %}
