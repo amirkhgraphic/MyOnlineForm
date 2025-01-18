@@ -3,6 +3,8 @@ __pycache__/
 .venv/
 media/
 local_*
-db.sqlite3
+data/db.sqlite3
+*sqlite3
+*backup*
 staticfiles
 .env

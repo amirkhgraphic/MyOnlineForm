@@ -55,6 +55,15 @@
                     رزروها
                 </a>
             </div>
+        </div>
+        <div class="mb-4">
+            <h6>لینک کوتاه:</h6>
+            <div dir="ltr" class="input-group">
+                <input type="text" class="form-control" value="" id="shortLink" readonly>
+                <button class="btn btn-outline-secondary" type="button" id="copyButton">
+                    <i class="bi bi-clipboard" id="copyIcon"></i>
+                </button>
+            </div>
             {% endif %}
         </div>
 
@@ -82,4 +91,36 @@
             {% endfor %}
         </ul>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const shortLink = '{{ form.short_url }}';
+            const redirectURL = window.location.hostname + '/f/' + shortLink;
+            const inp = document.getElementById('shortLink');
+            inp.value = redirectURL;
+        })
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            var copyText = document.getElementById('shortLink');
+            var copyIcon = document.getElementById('copyIcon');
+            var copyButton = document.getElementById('copyButton');
+
+            copyText.select();
+            document.execCommand('copy');
+
+            copyIcon.classList.remove('bi-clipboard');
+            copyIcon.classList.add('bi-clipboard-check');
+
+            copyButton.classList.remove('btn-outline-secondary');
+            copyButton.classList.add('btn-success');
+
+            setTimeout(function() {
+                copyIcon.classList.remove('bi-clipboard-check');
+                copyIcon.classList.add('bi-clipboard');
+                copyButton.classList.add('btn-outline-secondary');
+                copyButton.classList.remove('btn-success');
+            }, 2000);
+        });
+    </script>
+
 {% endblock %}

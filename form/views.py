@@ -17,6 +17,11 @@ from utils.persian import convert_to_jalali
 from .tasks import send_booking_email_task, send_cancel_mail_task
 
 
+def redirect_to_form(request, short_key):
+    form = get_object_or_404(Form, short_url=short_key)
+    return redirect(reverse('form:detail', kwargs={'slug': form.slug}))
+
+
 class FormListView(AdminRequiredMixin, generic.ListView):
     model = Form
     template_name = 'form/list.html'

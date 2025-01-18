@@ -1,9 +1,11 @@
+import string
+import random
 import jdatetime
-from django.core.validators import MinValueValidator
 from slugify import slugify
 
 from django.db import models
 from django.conf import settings
+from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
 
@@ -40,12 +42,18 @@ class Form(models.Model):
         default=1
     )
     created_at = models.DateTimeField(auto_now_add=True)
-
+    short_url = models.CharField(max_length=31, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        new_id = Form.objects.order_by('-id').values_list('id', flat=True)[0] + 1
-        slug = f"{slugify(self.name)}-{new_id}"
-        self.slug = slug
+        if not self.slug or Form.objects.filter(slug=self.slug).exists():
+            new_id = self.id if self.id else Form.objects.order_by('-id').values_list('id', flat=True)[0] + 1
+            slug = f"{slugify(self.name)}-{new_id}"
+            self.slug = slug
+
+        if not self.short_url:
+            short_key = ''.join(random.choices(string.ascii_letters + string.digits, k=7))
+            self.short_url = short_key
+
         super().save(*args, **kwargs)
 
     def __str__(self):
