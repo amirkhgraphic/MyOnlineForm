@@ -29,9 +29,12 @@
                         </div>
                         {% endif %}
                     {% else %}
-                        <div class="badge bg-danger py-3 opacity-75" disabled>برای استفاده از سایر قسمت‌ها
-                            <a href="{% url 'users:login' %}" style="color: black;">وارد</a>
-                            حساب کاربری خود که به عنوان TA ثبت‌نام کرده‌اید، شوید :)</div>
+                        <div class="bg-danger text-white text-center rounded small py-3 bg-opacity-75" disabled>برای استفاده از سایر قسمت‌ها
+                            <a href="{% url 'users:login' %}" class="p-0 px-2 btn btn-dark">
+                                <span class="small">وارد</span>
+                            </a>
+                            حساب کاربری خود که به عنوان TA ثبت‌نام کرده‌اید، شوید :)
+                        </div>
                     {% endif %}
                 </div>
             </div>
