@@ -72,6 +72,10 @@ class TimeSlot(models.Model):
         self.is_available = False
         self.save()
 
+    def mark_available(self):
+        self.is_available = True
+        self.save()
+
     def __str__(self):
         return f'{self.datetime} - {self.form.name}'
 
@@ -90,11 +94,11 @@ class Answer(models.Model):
         if not self.time_slot.is_available:
             raise ValueError("This time slot is no longer available.")
 
+        self.time_slot.mark_unavailable()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        self.time_slot.is_available = True
-        self.time_slot.save()
+        self.time_slot.mark_available()
         super().delete(*args, **kwargs)
 
     def __str__(self):

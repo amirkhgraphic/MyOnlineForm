@@ -199,16 +199,6 @@ class BookTimeSlotView(View):
                     time_slot=time_slot,
                     email=user_email,
                 )
-                time_slot.mark_unavailable()
-
-                send_booking_email_task.delay(user_email, {
-                    'first_name': first_name,
-                    'last_name': last_name,
-                    'student_id': student_id,
-                    'datetime': convert_to_jalali([time_slot])[0]['datetime'],
-                    'form_name': time_slot.form.name,
-                })
-
                 return redirect(reverse('form:success', kwargs={'slug': slug}))
             except IntegrityError:
                 messages.error(request, "شما قبلا با این کد دانشجویی یا ایمیل ثبت نام کرده‌اید")
@@ -255,17 +245,6 @@ class AnswerDeleteView(generic.DeleteView):
         if self.request.user == obj.form.created_by:
             return obj
         raise PermissionDenied()
-
-    def post(self, request, *args, **kwargs):
-        obj = self.get_object()
-        send_cancel_mail_task.delay(obj.email, {
-            'first_name': obj.first_name,
-            'last_name': obj.last_name,
-            'student_id': obj.student_id,
-            'datetime': convert_to_jalali([obj.time_slot])[0]['datetime'],
-            'form_name': obj.time_slot.form.name,
-        })
-        return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

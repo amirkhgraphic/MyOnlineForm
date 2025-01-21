@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلاع از رزرو جدید</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Tahoma', sans-serif;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+        .email-body {
+            padding: 20px;
+            color: #212529;
+            text-align: right;
+        }
+        .email-footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Email Header -->
+        <div class="email-header">
+            <h1>اطلاع از رزرو جدید</h1>
+        </div>
+        <!-- Email Body -->
+        <div class="email-body">
+            {{ ta_content }}
+            <p>کاربر گرامی؛</p>
+            <p>رزرو جدیدی در فرم
+                <strong>«{{ form_name }}»</strong>
+                ثبت شده است.</p>
+            <p>اطلاعات رزرو:</p>
+            <ul style="color: #212529; font-weight: bold; line-height: 1.8;">
+                <li>نام کاربر: <strong>{{ first_name }} {{ last_name }}</strong></li>
+                <li>زمان رزرو: <strong style="color:dodgerblue;">{{ datetime }}</strong></li>
+                <li>ایمیل کاربر: <strong>{{ user_email }}</strong></li>
+            </ul>
+            <p>لطفاً در صورت نیاز اقدامات لازم را انجام دهید.</p>
+        </div>
+        <!-- Email Footer -->
+        <div class="email-footer">
+            <p>&copy; 2025 انجمن علمی مهندسی کامپیوتر دانشگاه گیلان. کلیه حقوق محفوظ است.</p>
+        </div>
+    </div>
+</body>
+</html>
