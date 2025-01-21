@@ -1,4 +1,5 @@
 import datetime
+from django_filters.views import FilterView
 
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
@@ -15,6 +16,7 @@ from .models import Form, TimeSlot, Answer
 from .permissions import AdminRequiredMixin
 from utils.persian import convert_to_jalali
 from .tasks import send_booking_email_task, send_cancel_mail_task
+from form.filters import FormFilter
 
 
 def redirect_to_form(request, short_key):
@@ -22,10 +24,12 @@ def redirect_to_form(request, short_key):
     return redirect(reverse('form:detail', kwargs={'slug': form.slug}))
 
 
-class FormListView(AdminRequiredMixin, generic.ListView):
+class FormListView(AdminRequiredMixin, FilterView):
     model = Form
     template_name = 'form/list.html'
     context_object_name = 'forms'
+    filterset_class = FormFilter
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()

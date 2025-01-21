@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from django.utils.translation import gettext_lazy as _
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -22,6 +24,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
 
     'django_celery_results',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -115,3 +118,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Tehran'
+
+FILTERS_EMPTY_CHOICE_LABEL = _('همه')
+FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
