@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}انقضای لینک{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-warning">لینک فعال‌سازی منقضی شده است</h1>
+        <p>لطفاً درخواست ارسال لینک جدید را ارسال کنید.</p>
+        <a href="{% url 'request_new_email' %}" class="btn btn-primary">ارسال لینک جدید</a>
+    </div>
+{% endblock %}

@@ -22,7 +22,7 @@ class User(AbstractUser):
         help_text=_('شماره تماس'),
     )
     created_at = models.DateTimeField(auto_now_add=True, help_text=_('تاریخ ساخت'))
-    is_active = models.BooleanField(default=True, help_text=_('فعال بودن'))
+    is_active = models.BooleanField(default=False, help_text=_('فعال بودن'))
     is_admin = models.BooleanField(default=False, help_text=_('ادمین بودن'))
 
     def __str__(self):

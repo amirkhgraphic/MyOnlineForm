@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}تأیید موفق{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-success">{{ msg }}</h1>
+        <p>حساب کاربری شما با موفقیت تأیید شد.</p>
+        <a href="{{ link }}" class="btn btn-primary">ورود به سیستم</a>
+    </div>
+{% endblock %}

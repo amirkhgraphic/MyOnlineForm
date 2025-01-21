@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}فعال‌سازی حساب‌کاربری{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">فرم فعال‌سازی حساب‌کاربری</h2>
+    <hr />
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary w-100" type="submit" value="ارسال لینک">
+    </form>
+{% endblock %}

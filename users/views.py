@@ -24,13 +24,13 @@ class UserSignUpView(FormView):
         user = authenticate(username=username, password=raw_password)
 
         if form.cleaned_data['apply_for_ta']:
-            send_admin_request_email_task({
+            send_admin_request_email_task.delay({
                 'username': username,
             })
 
         if user is not None:
             login(self.request, user)
-     
+
         return super().form_valid(form)
 
 

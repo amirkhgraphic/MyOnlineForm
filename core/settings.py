@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -25,6 +25,7 @@ INSTALLED_APPS = [
 
     'django_celery_results',
     'django_filters',
+    'verify_email.apps.VerifyEmailConfig',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,15 @@ CELERY_TIMEZONE = 'Asia/Tehran'
 
 FILTERS_EMPTY_CHOICE_LABEL = _('همه')
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+]
+
+VERIFICATION_SUCCESS_TEMPLATE = "users/verification/success.html"
+VERIFICATION_FAILED_TEMPLATE = "users/verification/failed.html"
+REQUEST_NEW_EMAIL_TEMPLATE = 'users/verification/email-verification.html'
+LINK_EXPIRED_TEMPLATE = 'users/verification/link-expired.html'
+NEW_EMAIL_SENT_TEMPLATE  = 'users/verification/new-email-sent.html'
+EXPIRE_AFTER = "15m"
+MAX_RETRIES = 5

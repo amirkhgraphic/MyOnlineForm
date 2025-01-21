@@ -11,4 +11,5 @@ urlpatterns = [
     path('form/', include(('form.urls', 'form'), namespace='form')),
     path('user/', include(('users.urls', 'users'), namespace='users')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('verification/', include(('verify_email.urls', 'verify_email'), namespace='verification')),
 ]
