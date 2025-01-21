@@ -91,4 +91,16 @@
         loaderModal.style.display = 'flex';
     });
 </script>
+
+<script>
+    function convertToPersianNumbers(input) {
+        const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return input.replace(/\d/g, digit => persianNumbers[digit]);
+    }
+
+    const elements = document.getElementsByClassName('persian');
+    for (let element of elements) {
+        element.innerText = convertToPersianNumbers(element.textContent);
+    }
+</script>
 </html>

@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
+{% block style %}
+    <style>
+        .table-responsive::-webkit-scrollbar {
+            width: 20px; /* Width of the scrollbar */
+            height: 20px; /* Height for horizontal scrollbar */
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #e1e1e1; /* Background color of the track */
+            border-radius: 10px; /* Rounded corners for the track */
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: #888; /* Color of the scrollbar thumb */
+            border-radius: 10px; /* Rounded corners for the thumb */
+            border: 2px solid #f1f1f1; /* Adds padding around the thumb */
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Color when hovering over the scrollbar thumb */
+        }
+
+
+        @media (max-width: 768px) {
+            .table {
+                width: 200%;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 <div class="d-flex align-items-center justify-content-between my-3">
     <h1 class="m-0">زمان‌های رزرو شده برای فرم «{{ form.name }}»</h1>
@@ -8,7 +39,8 @@
     </a>
 </div>
 {% if booked_slots %}
-    <table class="table table-bordered">
+    <div class="table-responsive">
+        <table class="table table-bordered">
         <thead>
             <tr>
                 <th>ردیف</th>
@@ -21,10 +53,10 @@
         <tbody>
             {% for slot in booked_slots %}
                 <tr>
-                    <td>{{ forloop.counter }}</td>
+                    <td class="persian">{{ forloop.counter }}</td>
                     <td>{{ slot.datetime }}</td>
                     <td>{{ slot.answer.first_name }} {{ slot.answer.last_name }}</td>
-                    <td>{{ slot.answer.student_id }}</td>
+                    <td class="persian">{{ slot.answer.student_id }}</td>
                     <td>
                         <a href="{% url 'form:delete-answer' slot.answer.id %}" class="btn btn-danger">
                             حذف
@@ -34,6 +66,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
 {% else %}
     <p>هیچ زمان رزرو شده‌ای وجود ندارد.</p>
 {% endif %}
