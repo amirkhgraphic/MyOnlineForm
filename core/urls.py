@@ -12,4 +12,5 @@ urlpatterns = [
     path('user/', include(('users.urls', 'users'), namespace='users')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('verification/', include(('verify_email.urls', 'verify_email'), namespace='verification')),
+    path('log/', include(('log.urls', 'log'), namespace='log')),
 ]

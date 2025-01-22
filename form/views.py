@@ -15,7 +15,7 @@ from .forms import FormCreateForm, TimeSlotCreateForm, TimeSlotsCreateForm
 from .models import Form, TimeSlot, Answer
 from .permissions import AdminRequiredMixin
 from utils.persian import convert_to_jalali
-from .tasks import send_booking_email_task, send_cancel_mail_task
+from log.utils import log_activity
 from form.filters import FormFilter
 
 
@@ -128,6 +128,12 @@ class TimeSlotsCreateView(generic.View):
             ]
             try:
                 TimeSlot.objects.bulk_create(time_slots)
+                for time_slot in time_slots:
+                    log_activity(
+                    action='create',
+                    instance=time_slot,
+                    request=request,
+                )
             except:
                 form.add_error(None, "تاریخ و زمان انتخابی شما با زمان‌هایی که قبلا انتخاب کرده‌اید هم‌پوشانی دارد!")
             else:

@@ -19,6 +19,7 @@ INSTALLED_APPS = [
 
     'form.apps.FormConfig',
     'users.apps.UsersConfig',
+    'log.apps.LogConfig',
 
     "crispy_forms",
     "crispy_bootstrap5",
@@ -37,6 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'log.middleware.RequestMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'

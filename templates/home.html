@@ -22,11 +22,17 @@
                             </div>
                         </div>
                         {% if request.user.is_staff %}
-                        <div class="col-md-12">
-                            <div class="card mb-4 shadow-sm">
-                                <a href="/admin/" class="btn btn-primary py-3">پنل ادمین</a>
+                            <div class="col-md-12">
+                                <div class="card mb-4 shadow-sm">
+                                    <a href="/admin/" class="btn btn-primary py-3">پنل ادمین</a>
+                                </div>
                             </div>
-                        </div>
+                            {% if request.user.is_superuser %}
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'log:download-db-backup' %}" class="btn btn-success py-3 w-100">دانلود بک‌آپ دیتابیس</a>
+                                    <a href="{% url 'log:read-db-backup' %}" class="btn btn-warning py-3 w-100">بک‌اپ دیتابیس json</a>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% else %}
                         <div class="bg-danger text-white text-center rounded small py-3 bg-opacity-75" disabled>برای استفاده از سایر قسمت‌ها
