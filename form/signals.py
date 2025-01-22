@@ -23,7 +23,7 @@ def send_email_on_answer_create(sender, instance, created, **kwargs):
         'datetime': convert_to_jalali([instance.time_slot])[0]['datetime'],
         'form_name': instance.form.name,
     }
-    send_booking_email_task(student_email, email_data, ta_email)
+    send_booking_email_task.delay(student_email, email_data, ta_email)
 
 
 @receiver(post_delete, sender=Answer)
@@ -41,4 +41,4 @@ def send_cancel_email_on_answer_delete(sender, instance, **kwargs):
         'datetime': jalali_datetime,
         'form_name': instance.time_slot.form.name,
     }
-    send_cancel_mail_task(student_email, email_data, ta_email)
+    send_cancel_mail_task.delay(student_email, email_data, ta_email)
