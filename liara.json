@@ -1,0 +1,16 @@
+{
+  "app": "peaceful-archimedes-ilkv7yt2y",
+  "build": {
+    "location": "iran"
+  },
+  "disks": [
+    {
+      "name": "media",
+      "mountTo": "media/"
+    },
+    {
+      "name": "data",
+      "mountTo": "data/"
+    }
+  ]
+}
