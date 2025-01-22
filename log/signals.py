@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from .models import ActivityLog
+from .models import ActivityLog, EmailLog
 from .middleware import get_current_request
 
 @receiver(post_save)
@@ -9,7 +9,7 @@ def log_model_save(sender, instance, created, **kwargs):
     """
     Logs create and update actions for model instances.
     """
-    if sender == ActivityLog:
+    if sender in [ActivityLog, EmailLog]:
         return
 
     request = get_current_request()
@@ -30,7 +30,7 @@ def log_model_delete(sender, instance, **kwargs):
     """
     Logs delete actions for model instances.
     """
-    if sender == ActivityLog:
+    if sender in [ActivityLog, EmailLog]:
         return
 
     request = get_current_request()
