@@ -26,6 +26,7 @@ class DownloadFixturesView(View):
 
         buffer = io.StringIO()
         call_command('dumpdata', 'users', 'form', '--indent', '4', stdout=buffer)
+        buffer.seek(0)
         response = HttpResponse(buffer, content_type='application/json')
         response['Content-Disposition'] = 'attachment; filename="db-fixtures.json"'
         return response
