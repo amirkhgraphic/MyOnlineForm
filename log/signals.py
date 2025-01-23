@@ -14,9 +14,11 @@ def log_model_save(sender, instance, created, **kwargs):
 
     request = get_current_request()
     action = 'create' if created else 'update'
+    user = getattr(request, 'user', None)
+    user = user if user and user.is_authenticated() else None
 
     ActivityLog.objects.create(
-        user=getattr(request, 'user', None),
+        user=user,
         action=action,
         model_name=sender.__name__,
         model_instance_id=instance.pk,
@@ -34,9 +36,11 @@ def log_model_delete(sender, instance, **kwargs):
         return
 
     request = get_current_request()
+    user = getattr(request, 'user', None)
+    user = user if user and user.is_authenticated() else None
 
     ActivityLog.objects.create(
-        user=getattr(request, 'user', None),
+        user=user,
         action='delete',
         model_name=sender.__name__,
         model_instance_id=instance.pk,

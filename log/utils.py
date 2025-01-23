@@ -26,7 +26,7 @@ def log_activity(action, instance, request):
     """
     model_name = instance.__class__.__name__
     instance_id = instance.pk
-    user = request.user
+    user = request.user if request.user.is_authenticated else None
     ip_address = get_client_ip(request)
     device_info = get_device_info(request)
 
