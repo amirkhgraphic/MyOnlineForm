@@ -15,7 +15,7 @@ def log_model_save(sender, instance, created, **kwargs):
     request = get_current_request()
     action = 'create' if created else 'update'
     user = getattr(request, 'user', None)
-    user = user if user and user.is_authenticated() else None
+    user = user if user and user.is_authenticated else None
 
     ActivityLog.objects.create(
         user=user,
@@ -37,7 +37,7 @@ def log_model_delete(sender, instance, **kwargs):
 
     request = get_current_request()
     user = getattr(request, 'user', None)
-    user = user if user and user.is_authenticated() else None
+    user = user if user and user.is_authenticated else None
 
     ActivityLog.objects.create(
         user=user,
