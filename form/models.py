@@ -94,12 +94,12 @@ class Answer(models.Model):
         if not self.time_slot.is_available:
             raise ValueError("This time slot is no longer available.")
 
-        self.time_slot.mark_unavailable()
         super().save(*args, **kwargs)
+        self.time_slot.mark_unavailable()
 
     def delete(self, *args, **kwargs):
-        self.time_slot.mark_available()
         super().delete(*args, **kwargs)
+        self.time_slot.mark_available()
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}: {self.time_slot}'
