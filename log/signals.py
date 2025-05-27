@@ -21,7 +21,7 @@ def log_model_save(sender, instance, created, **kwargs):
         user=user,
         action=action,
         model_name=sender.__name__,
-        model_instance_id=instance.pk,
+        model_instance_id=instance.id,
         ip_address=getattr(request, 'META', {}).get('REMOTE_ADDR'),
         device_info=request.META.get('HTTP_USER_AGENT') if request else None,
     )
