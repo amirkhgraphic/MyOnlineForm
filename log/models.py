@@ -15,7 +15,7 @@ class ActivityLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     action = models.CharField(max_length=20, choices=ACTIONS_CHOICES)
     model_name = models.CharField(max_length=255, null=True, blank=True)
-    model_instance_id = models.PositiveIntegerField(null=True, blank=True)
+    model_instance_id = models.CharField(max_length=511, null=True, blank=True)
     ip_address = models.GenericIPAddressField(null=True, blank=True)
     device_info = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
