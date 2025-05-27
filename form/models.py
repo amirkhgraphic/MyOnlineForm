@@ -59,6 +59,9 @@ class Form(models.Model):
     def __str__(self):
         return f'#{self.id}: {self.name}'
 
+    class Meta:
+        ordering = ['-created_at']
+
 
 class TimeSlot(models.Model):
     form = models.ForeignKey(Form, on_delete=models.CASCADE, related_name='time_slots')
