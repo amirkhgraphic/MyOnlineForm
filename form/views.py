@@ -33,7 +33,7 @@ class FormListView(AdminRequiredMixin, FilterView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(created_by=self.request.user).order_by('-created_at')
+        return queryset.filter(created_by=self.request.user).order_by('created_at')
 
 
 class FormDetailView(generic.DetailView):
