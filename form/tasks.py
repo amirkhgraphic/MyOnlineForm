@@ -134,8 +134,7 @@ def send_presentation_reminder(context, user_mail):
         delta_phrase: "time left until the presentation"
     }
     """
-
-    subject = f"یادآوری! {context["delta_phrase"]} تا ارائه: {context['title']}"
+    subject = f"یادآوری! {context['delta_phrase']} تا ارائه: {context['title']}"
     message = render_to_string('emails/booking_reminder.html', context)
     email = EmailMessage(subject, message, settings.DEFAULT_FROM_EMAIL, [user_mail])
     email.content_subtype = 'html'

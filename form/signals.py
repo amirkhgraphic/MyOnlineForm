@@ -45,6 +45,7 @@ def send_email_on_answer_create(sender, instance, created, **kwargs):
     }
 
     # for test only ------------------------------------------------------------- be gone!
+    print('-----', 'sending test email...', '-'*100)
     send_presentation_reminder.apply_async(
         args=[context, student_email],
         eta=now() + timedelta(minutes=2)
