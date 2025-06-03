@@ -33,7 +33,7 @@ def send_email_on_answer_create(sender, instance, created, **kwargs):
     }
     send_booking_email_task.delay(student_email, email_data, ta_email)
 
-    reserved_time = instance.timeslot.datetime
+    reserved_time = instance.time_slot.datetime
     jalali_datetime = convert_to_jalali([instance.time_slot])[0]['datetime']
     context = {
         "title": instance.form.name,
