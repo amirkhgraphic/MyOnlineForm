@@ -14,6 +14,7 @@ class FormCreateForm(forms.ModelForm):
             'professor_name',
             'year',
             'semester',
+            'google_meet_url',
             'valid_student_ids',
         ]
         widgets = {
@@ -29,6 +30,7 @@ class FormCreateForm(forms.ModelForm):
             'professor_name': 'استاد',
             'year': 'سال تحصیلی',
             'semester': 'ترم جاری',
+            'google_meet_url': 'لینک جلسه گوگل‌میت',
             'valid_student_ids': 'شماره های دانشجویی مجاز',
         }
 
