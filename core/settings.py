@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
 
     'django_celery_results',
+    'django_celery_beat',
     'django_filters',
     'verify_email.apps.VerifyEmailConfig',
 ]
@@ -120,7 +121,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Tehran'
+# CELERY_TIMEZONE = 'Asia/Tehran'
 
 FILTERS_EMPTY_CHOICE_LABEL = _('همه')
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'

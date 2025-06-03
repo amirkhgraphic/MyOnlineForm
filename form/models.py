@@ -43,6 +43,7 @@ class Form(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     short_url = models.CharField(max_length=31, null=True, blank=True)
+    google_meet_url = models.URLField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug or Form.objects.filter(slug=self.slug).exists():
