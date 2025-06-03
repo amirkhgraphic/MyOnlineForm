@@ -41,16 +41,7 @@ def send_email_on_answer_create(sender, instance, created, **kwargs):
         "last_name": instance.last_name,
         "datetime": jalali_datetime,
         "google_meet_link": instance.form.google_meet_url,
-        "delta_phrase": "فلان قدر",
     }
-
-    # for test only ------------------------------------------------------------- be gone!
-    print('-----', 'sending test email...', '-'*100)
-    send_presentation_reminder.apply_async(
-        args=[context, student_email],
-        eta=now() + timedelta(minutes=2)
-    )
-    # be gone seriously ------------------------------------------------------------- :_)
 
     if reserved_time - timedelta(days=1) > now():
         # One day before
